@@ -1,4 +1,7 @@
 <!-- Topbar Start -->
+{% with request.resolver_match.url_name as url_name %}
+
+
 <div class="container-fluid bg-light p-0 wow fadeIn" data-wow-delay="0.1s">
     <div class="row gx-0 d-none d-lg-flex">
         <div class="col-lg-7 px-5 text-start">
@@ -26,9 +29,8 @@
     </div>
 </div>
 <!-- Topbar End -->
-
-{% if url == home %}
 <!-- Navbar Start -->
+{% if request.user.is_authenticated %}
 <nav class="navbar navbar-expand-lg bg-white navbar-light sticky-top p-0 wow fadeIn" data-wow-delay="0.1s">
     <a href="{% url "home" %}" class="navbar-brand d-flex align-items-center px-4 px-lg-5">
         <h1 class="m-0 text-primary"><i class="far fa-hospital me-3"></i>Medica</h1>
@@ -38,8 +40,39 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarCollapse">
         <div class="navbar-nav ms-auto p-4 p-lg-0">
-            <a href="{% url "home" %}" class="nav-item nav-link active">Home</a>
-            <a href="{% url "about" %}" class="nav-item nav-link">About</a>
+
+            <a href="{% url "home" %}" class="{% if url_name == 'home'%} active {%endif%}nav-item nav-link ">Home</a>
+            <a href="{% url "about" %}" class="{% if url_name == 'about'%} active {%endif%}nav-item nav-link">About</a>
+            <a href="{% url "services" %}" class="nav-item nav-link">Service</a>
+            <div class="nav-item dropdown">
+                <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
+                <div class="dropdown-menu rounded-0 rounded-bottom m-0">
+                    <a href="{% url "feature" %}" class="dropdown-item">Feature</a>
+                    <a href="{% url "team" %}" class="dropdown-item">Our Doctor</a>
+                    <a href="{% url "appointment" %}" class="dropdown-item">Appointment</a>
+                    <a href="{% url "testimonial" %}" class="dropdown-item">Testimonial</a>
+                </div>
+            </div>
+            <a href="{% url "contact"%}" class="nav-item nav-link">Contact</a>
+        </div>
+        <a href="{% url "logout"%}" class="btn btn-primary rounded-0 py-4 px-lg-5 d-none d-lg-block">Logout<i class="fa fa-arrow-right ms-3"></i></a>
+    </div>
+</nav>
+
+
+{% else %}
+<nav class="navbar navbar-expand-lg bg-white navbar-light sticky-top p-0 wow fadeIn" data-wow-delay="0.1s">
+    <a href="{% url "home" %}" class="navbar-brand d-flex align-items-center px-4 px-lg-5">
+        <h1 class="m-0 text-primary"><i class="far fa-hospital me-3"></i>Medica</h1>
+    </a>
+    <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+        <div class="navbar-nav ms-auto p-4 p-lg-0">
+
+            <a href="{% url "home" %}" class="{% if url_name == 'home'%} active {%endif%}nav-item nav-link ">Home</a>
+            <a href="{% url "about" %}" class="{% if url_name == 'about'%} active {%endif%}nav-item nav-link">About</a>
             <a href="{% url "services" %}" class="nav-item nav-link">Service</a>
             <div class="nav-item dropdown">
                 <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
@@ -55,95 +88,7 @@
         <a href="" class="btn btn-primary rounded-0 py-4 px-lg-5 d-none d-lg-block">Appointment<i class="fa fa-arrow-right ms-3"></i></a>
     </div>
 </nav>
-
-{% elif url == about %}
-<nav class="navbar navbar-expand-lg bg-white navbar-light sticky-top p-0 wow fadeIn" data-wow-delay="0.1s">
-    <a href="{% url "home" %}" class="navbar-brand d-flex align-items-center px-4 px-lg-5">
-        <h1 class="m-0 text-primary"><i class="far fa-hospital me-3"></i>Medica</h1>
-    </a>
-    <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarCollapse">
-        <div class="navbar-nav ms-auto p-4 p-lg-0">
-            <a href="{% url "home" %}" class="nav-item nav-link ">Home</a>
-            <a href="{% url "about" %}" class="nav-item nav-link active">About</a>
-            <a href="{% url "services" %}" class="nav-item nav-link">Service</a>
-            <div class="nav-item dropdown">
-                <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
-                <div class="dropdown-menu rounded-0 rounded-bottom m-0">
-                    <a href="{% url "feature" %}" class="dropdown-item">Feature</a>
-                    <a href="{% url "team" %}" class="dropdown-item">Our Doctor</a>
-                    <a href="{% url "appointment" %}" class="dropdown-item">Appointment</a>
-                    <a href="{% url "testimonial" %}" class="dropdown-item">Testimonial</a>
-                </div>
-            </div>
-            <a href="{% url "contact"%}" class="nav-item nav-link">Contact</a>
-        </div>
-        <a href="" class="btn btn-primary rounded-0 py-4 px-lg-5 d-none d-lg-block">Appointment<i class="fa fa-arrow-right ms-3"></i></a>
-    </div>
-</nav> 
-
-    
-{% elif url == services %}
-<nav class="navbar navbar-expand-lg bg-white navbar-light sticky-top p-0 wow fadeIn" data-wow-delay="0.1s">
-    <a href="{% url "home" %}" class="navbar-brand d-flex align-items-center px-4 px-lg-5">
-        <h1 class="m-0 text-primary"><i class="far fa-hospital me-3"></i>Medica</h1>
-    </a>
-    <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarCollapse">
-        <div class="navbar-nav ms-auto p-4 p-lg-0">
-            <a href="{% url "home" %}" class="nav-item nav-link ">Home</a>
-            <a href="{% url "about" %}" class="nav-item nav-link">About</a>
-            <a href="{% url "services" %}" class="nav-item nav-link active ">Service</a>
-            <div class="nav-item dropdown">
-                <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
-                <div class="dropdown-menu rounded-0 rounded-bottom m-0">
-                    <a href="{% url "feature" %}" class="dropdown-item">Feature</a>
-                    <a href="{% url "team" %}" class="dropdown-item">Our Doctor</a>
-                    <a href="{% url "appointment" %}" class="dropdown-item">Appointment</a>
-                    <a href="{% url "testimonial" %}" class="dropdown-item">Testimonial</a>
-                </div>
-            </div>
-            <a href="{% url "contact"%}" class="nav-item nav-link">Contact</a>
-        </div>
-        <a href="" class="btn btn-primary rounded-0 py-4 px-lg-5 d-none d-lg-block">Appointment<i class="fa fa-arrow-right ms-3"></i></a>
-    </div>
-</nav>
-    
-{% elif url == contact %}
-    
-    <nav class="navbar navbar-expand-lg bg-white navbar-light sticky-top p-0 wow fadeIn" data-wow-delay="0.1s">
-        <a href="{% url "home" %}" class="navbar-brand d-flex align-items-center px-4 px-lg-5">
-            <h1 class="m-0 text-primary"><i class="far fa-hospital me-3"></i>Medica</h1>
-        </a>
-        <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarCollapse">
-            <div class="navbar-nav ms-auto p-4 p-lg-0">
-                <a href="{% url "home" %}" class="nav-item nav-link ">Home</a>
-                <a href="{% url "about" %}" class="nav-item nav-link">About</a>
-                <a href="{% url "services" %}" class="nav-item nav-link">Service</a>
-                <div class="nav-item dropdown">
-                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
-                    <div class="dropdown-menu rounded-0 rounded-bottom m-0">
-                        <a href="{% url "feature" %}" class="dropdown-item">Feature</a>
-                        <a href="{% url "team" %}" class="dropdown-item">Our Doctor</a>
-                        <a href="{% url "appointment" %}" class="dropdown-item">Appointment</a>
-                        <a href="{% url "testimonial" %}" class="dropdown-item">Testimonial</a>
-                    </div>
-                </div>
-                <a href="{% url "contact"%}" class="nav-item nav-link active">Contact</a>
-            </div>
-            <a href="" class="btn btn-primary rounded-0 py-4 px-lg-5 d-none d-lg-block">Appointment<i class="fa fa-arrow-right ms-3"></i></a>
-        </div>
-    </nav>
-
-{% endif %}
-
-
+{%  endif  %}
+{% endwith %}
 <!-- Navbar End -->
 
