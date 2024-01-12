@@ -21,8 +21,5 @@ def appointment(request):
 
 def testimonial(request):
     return render(request, 'app1/testimonial.html')
-
-def error_404(request):
-    return render(request, 'app1/404.html')
 def feature(request):
     return render(request, 'app1/feature.html')
