@@ -78,9 +78,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'medical',
-        'HOST': 'localhost',
-        'USER': 'root',
-        'PASSWORD':'125114ab',
+        'HOST': 'medica.mysql.database.azure.com',
+        'USER': 'root1',
+        'PASSWORD':'abcd1234!',
         'PORT':'3306'
     }
 }
