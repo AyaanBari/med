@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.models import Group
-from . models import Doctor, Schedule,Department
+from . models import Doctor, Schedule,Department,Appointment
 
 
 
@@ -32,4 +32,19 @@ class ScheduleAdmin(admin.ModelAdmin):
 
     def doctors(self,obj):
         return obj.doctor.dname
+    
+@admin.register(Appointment)
+class AppointmentAdmin(admin.ModelAdmin):
+    list_display=('patients','doctors', 'appmadeon', 'appdate')
+
+    def patients(self, obj):
+        return obj.patient.first_name+" "+obj.patient.last_name
+    
+    def doctors(self, obj):
+        return obj.doctor.dname
+    
+    def has_change_permission(self, request, obj=None):
+        return False
+    def has_delete_permission(self, request, obj=None):
+        return False
     

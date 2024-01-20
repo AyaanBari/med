@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-from .models import Pataient    
+from .models import Appointment, Pataient    
+from datetime import date, timedelta
 
 
 class PatientForm(UserCreationForm):
@@ -52,3 +53,21 @@ class SignInForm(AuthenticationForm):
         label=("Password"),
         widget=forms.PasswordInput(attrs={'class': 'form-control border-primary', 'placeholder':'Enter password'})
     )
+
+    def clean_appdate(self):
+        ad = self.cleaned_data['appdate']
+        td = date.today()
+        fd = date.today() + timedelta(days=30)
+        if ad == td:
+            raise forms.ValidationError('Selected date may not be today')
+        elif ad < td:
+            raise forms.ValidationError('Selected date may not be previous day')
+        elif ad > fd:
+            raise forms.ValidationError('Selected date must be within 30 days from current date')
+        return ad
+    class Meta:
+        model = Appointment
+        fields = ['appdate']
+        widgets = {
+            'appdate': forms.DateInput(attrs={'class': 'form-control border-primary', 'placeholder':'Select Date', 'type':'date'})
+        }
