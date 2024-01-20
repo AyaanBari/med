@@ -26,3 +26,10 @@ class Schedule(models.Model):
     t_slot=models.CharField(max_length=200)
     doctor=models.ForeignKey(Doctor, on_delete=models.CASCADE, verbose_name='Select Doctor')
     noofpp=models.CharField(max_length=2,verbose_name='Number of Patients')
+
+class Appointment(models.Model):
+    appid=models.AutoField(primary_key=True)
+    doctor=models.ForeignKey(Doctor, on_delete=models.CASCADE, verbose_name='Doctor')
+    patient=models.ForeignKey(Pataient, on_delete=models.CASCADE, related_name='Patient')
+    appmadeon=models.DateField(auto_now_add=True, blank=False, verbose_name='Appointment Made Date')
+    appdate=models.DateField(verbose_name='Appointment Date')
