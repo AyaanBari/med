@@ -3,6 +3,8 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from .models import Appointment, Pataient    
 
+class DateInput(forms.DateInput):
+    input_type = 'date'
 
 class PatientForm(UserCreationForm):
     username = forms.CharField(
@@ -56,7 +58,7 @@ class SignInForm(AuthenticationForm):
 
 class AppointmentForm(forms.ModelForm):
     appdate=forms.DateField(label="Select Appointment date*",
-            widget=forms.DateInput(attrs={
+            widget=DateInput(attrs={
             'class': 'form-control border-primary',
             'placeholder': 'Select Appointment date'
         }))
