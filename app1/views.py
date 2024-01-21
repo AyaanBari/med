@@ -2,6 +2,11 @@ from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
 from . forms import PatientForm,SignInForm
 from django.contrib import messages
+from .forms import AppointmentForm
+from .models import Appointment
+from app1.models import Schedule
+from datetime import date, timedelta
+import datetime
 
 # Create your views here.   
 def home(request):
@@ -18,9 +23,6 @@ def services(request):
 
 def team(request):
     return render(request, 'app1/team.html')
-
-def appointment(request):
-    return render(request, 'app1/appointment.html')
 
 def testimonial(request):
     return render(request, 'app1/testimonial.html')
@@ -62,5 +64,42 @@ def userLogout(request):
 def profile(request):
     if request.user.is_authenticated:
         return render(request, 'app1/profile.html')
+    else:
+        return redirect('/signin/')
+    
+def makeApp(request,did):
+    if request.user.is_authenticated:
+        if request.POST:
+            schedule=Schedule.objects.get(doctor=did)
+            sDays=schedule.days.split()
+            appdate=datetime.datetime.strptime(request.POST.get('appdate'), "%Y-%m-%d").date()
+            appSDay=appdate.strftime('%A')
+            # print(appSDay)
+            # print(sDays)
+            frm=AppointmentForm(request.POST)
+            if frm.is_valid():
+                f=0
+                for d in sDays:
+                    if appSDay==d:
+                        f=1
+                if f==1:
+                    instance=frm.save(False)
+                    instance.doctor_id = did
+                    instance.patient_id=request.user.id
+                    instance.save()
+                    messages.success(request, 'Your appointment has been made successfully')
+                else:
+                    messages.error(request, 'Doctor will not be available that day')
+        else:
+            frm=AppointmentForm()
+        allDoc=Schedule.objects.raw("SELECT s.*, d.* FROM app1_schedule s INNER JOIN  app1_doctor d ON s.doctor_id=d.did WHERE d.did={}".format(did))
+        return render(request, 'app1/makeApp.html', {'allDoc':allDoc, 'frm':frm})
+    else:
+        return redirect('/signin/')
+    
+def appointment(request):
+    if request.user.is_authenticated:
+        app1=Appointment.objects.raw("SELECT a.*, d.*, s.days, s.t_slot FROM app1_appointment a INNER JOIN app1_doctor d ON  a.doctor_id=d.did INNER JOIN app1_schedule s ON a.doctor_id=s.doctor_id WHERE a.patient_id={}".format(request.user.id))
+        return render(request, 'app1/appointment.html',{'allDoc':app1})
     else:
         return redirect('/signin/')

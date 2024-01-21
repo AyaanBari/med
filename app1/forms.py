@@ -1,7 +1,7 @@
+from datetime import date, timedelta
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from .models import Appointment, Pataient    
-from datetime import date, timedelta
 
 
 class PatientForm(UserCreationForm):
@@ -54,11 +54,17 @@ class SignInForm(AuthenticationForm):
         widget=forms.PasswordInput(attrs={'class': 'form-control border-primary', 'placeholder':'Enter password'})
     )
 
+class AppointmentForm(forms.ModelForm):
+    appdate=forms.DateField(label="Select Appointment date*",
+            widget=forms.DateInput(attrs={
+            'class': 'form-control border-primary',
+            'placeholder': 'Select Appointment date'
+        }))
     def clean_appdate(self):
         ad = self.cleaned_data['appdate']
-        td = date.today()
-        fd = date.today() + timedelta(days=30)
-        if ad == td:
+        td=date.today()
+        fd=date.today() + timedelta(days=30)
+        if ad==td:
             raise forms.ValidationError('Selected date may not be today')
         elif ad < td:
             raise forms.ValidationError('Selected date may not be previous day')
@@ -68,6 +74,3 @@ class SignInForm(AuthenticationForm):
     class Meta:
         model = Appointment
         fields = ['appdate']
-        widgets = {
-            'appdate': forms.DateInput(attrs={'class': 'form-control border-primary', 'placeholder':'Select Date', 'type':'date'})
-        }
