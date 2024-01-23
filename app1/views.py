@@ -111,3 +111,33 @@ def doctor(request,deptid):
         return render(request, 'app1/doc.html', {'allDoc':allDoc})   
     else:
         return redirect('/signin/')
+    
+def changeProfile(request):
+    if request.user.is_authenticated:
+        if request.POST:
+            frm = ChangeProfileFrm(request.POST, instance=request.user)
+            if frm.is_valid():
+                try:
+                    frm.save()
+                    messages.success(request,'Profile Update successfully')
+                except Exception as e:
+                    messages.error(request, 'Profile Could Not Update successfully')
+        else:
+            frm=ChangeProfileFrm(instance=request.user)
+        return render(request, 'myapp/chngProfile.html', {'frm':frm})
+    else:
+        return redirect('/login')
+
+def chagapss(request):
+    if request.user.is_authenticated:
+        if request.POST:
+            frm = ChngePassFrm(request.user, request.POST)
+            if frm.is_valid():
+                frm.save()
+                update_session_auth_hash(request, request.user)
+                messages.success(request, 'Password change successfully')
+        else:
+            frm=ChngePassFrm(request.user)
+        return render(request, 'myapp/chngPass.html', {'frm':frm})
+    else:
+        return redirect('/login')
