@@ -16,5 +16,7 @@ urlpatterns = [
     path('profile/', views.profile, name="profile"),
     path('makeapp/<int:did>', views.makeApp, name='makeappointment'),
     path('doctor/<int:deptid>', views.doctor, name='doctor'),
+    path('change-password/', views.chagapss, name='change_password'),
+    path('change-user/', views.changeProfile, name='change_user'),
 
 ]

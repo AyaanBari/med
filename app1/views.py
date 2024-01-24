@@ -1,6 +1,6 @@
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login, logout,update_session_auth_hash
 from django.shortcuts import render, redirect
-from . forms import PatientForm,SignInForm
+from . forms import PatientForm,SignInForm ,ChangeProfileFrm,ChngePassFrm
 from django.contrib import messages
 from .forms import AppointmentForm
 from .models import Appointment ,Department, Doctor
@@ -124,9 +124,9 @@ def changeProfile(request):
                     messages.error(request, 'Profile Could Not Update successfully')
         else:
             frm=ChangeProfileFrm(instance=request.user)
-        return render(request, 'myapp/chngProfile.html', {'frm':frm})
+        return render(request, 'app1/changepro.html', {'frm':frm})
     else:
-        return redirect('/login')
+        return redirect('/signin/')
 
 def chagapss(request):
     if request.user.is_authenticated:
@@ -138,6 +138,6 @@ def chagapss(request):
                 messages.success(request, 'Password change successfully')
         else:
             frm=ChngePassFrm(request.user)
-        return render(request, 'myapp/chngPass.html', {'frm':frm})
+        return render(request, 'app1/changepass.html', {'frm':frm})
     else:
-        return redirect('/login')
+        return redirect('/signin/')
