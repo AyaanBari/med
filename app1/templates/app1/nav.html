@@ -43,14 +43,12 @@
 
             <a href="{% url "home" %}" class="{% if url_name == 'home'%} active {%endif%}nav-item nav-link ">Home</a>
             <a href="{% url "about" %}" class="{% if url_name == 'about'%} active {%endif%}nav-item nav-link">About</a>
-            <a href="{% url "services" %}" class="nav-item nav-link">Service</a>
+            <a href="{% url "profile" %}" class="nav-item nav-link">Doctors</a>
             <div class="nav-item dropdown">
-                <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
+                <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">More</a>
                 <div class="dropdown-menu rounded-0 rounded-bottom m-0">
-                    <a href="{% url "feature" %}" class="dropdown-item">Feature</a>
                     <a href="{% url "team" %}" class="dropdown-item">Our Doctor</a>
                     <a href="{% url "appointment" %}" class="dropdown-item">Appointment</a>
-                    <a href="{% url "testimonial" %}" class="dropdown-item">Testimonial</a>
                 </div>
             </div>
             <a href="{% url "contact"%}" class="nav-item nav-link">Contact</a>
@@ -73,14 +71,14 @@
 
             <a href="{% url "home" %}" class="{% if url_name == 'home'%} active {%endif%}nav-item nav-link ">Home</a>
             <a href="{% url "about" %}" class="{% if url_name == 'about'%} active {%endif%}nav-item nav-link">About</a>
-            <a href="{% url "services" %}" class="nav-item nav-link">Service</a>
+            <a href="{% url "signin" %}" class="nav-item nav-link">Doctors</a>
             <div class="nav-item dropdown">
                 <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
                 <div class="dropdown-menu rounded-0 rounded-bottom m-0">
-                    <a href="{% url "feature" %}" class="dropdown-item">Feature</a>
+
                     <a href="{% url "team" %}" class="dropdown-item">Our Doctor</a>
-                    <a href="{% url "appointment" %}" class="dropdown-item">Appointment</a>
-                    <a href="{% url "testimonial" %}" class="dropdown-item">Testimonial</a>
+                    <a href="{% url "signin" %}" class="dropdown-item">Appointment</a>
+
                 </div>
             </div>
             <a href="{% url "contact"%}" class="nav-item nav-link">Contact</a>

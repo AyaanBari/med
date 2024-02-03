@@ -22,7 +22,8 @@ def services(request):
     return render(request, 'app1/service.html')
 
 def team(request):
-    return render(request, 'app1/team.html')
+    allDoc=Doctor.objects.all()
+    return render(request, 'app1/team.html', {'allDoc':allDoc})
 
 def testimonial(request):
     return render(request, 'app1/testimonial.html')
