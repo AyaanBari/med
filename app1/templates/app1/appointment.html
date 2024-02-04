@@ -79,6 +79,7 @@
                 <th>Timing</th>
                 <th>Appointment Made Date</th>
                 <th>Appointment Date</th>
+                <th>Action</th>
               </tr>
             </thead>
             <tbody>
@@ -92,6 +93,7 @@
                   <td>{{rec.time_slot}}</td>
                   <td>{{rec.appmadeon}}</td>
                   <th>{{rec.appdate}}</th>
+                  <th><a href="/cancel/{{rec.appid}}" class="btn btn-danger">Cancel</a></th>
                 </tr>
               {% endfor %}
             </tbody>

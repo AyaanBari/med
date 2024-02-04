@@ -18,5 +18,6 @@ urlpatterns = [
     path('doctor/<int:deptid>', views.doctor, name='doctor'),
     path('change-password/', views.chagapss, name='change_password'),
     path('change-user/', views.changeProfile, name='change_user'),
+    path('cancel/<int:appid>', views.cancelApp, name='cancel'),
 
 ]

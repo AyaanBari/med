@@ -142,3 +142,15 @@ def chagapss(request):
         return render(request, 'app1/changepass.html', {'frm':frm})
     else:
         return redirect('/signin/')
+    
+def cancelApp(request, appid):
+    if request.user.is_authenticated:
+        try:
+            appointment = Appointment.objects.get(appid=appid,patient=request.user)
+            appointment.delete()
+            messages.success(request, 'Appointment cancel successfully')
+        except Exception as e:
+            messages.success(request, 'Appointment not cancel successfully')
+        return redirect('/appointment/')
+    else:
+        return redirect('/signin/')

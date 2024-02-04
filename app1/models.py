@@ -12,6 +12,9 @@ class Department(models.Model):
     deptid=models.AutoField(primary_key=True)
     deptname=models.CharField(max_length=255, verbose_name='Department Name')
     deptdesc=models.TextField(verbose_name='Department Description')
+
+    def __str__(self):
+        return self.deptname
 class Doctor(models.Model):
     did=models.AutoField(primary_key=True)
     dname=models.CharField(max_length=150, verbose_name='Doctor Name')
@@ -20,6 +23,8 @@ class Doctor(models.Model):
     dspec=models.CharField(max_length=255, verbose_name='Doctor Specialization')
     dept=models.ForeignKey(Department, on_delete=models.CASCADE, verbose_name='Select Department')
 
+    def __str__(self):
+        return self.dname
 class Schedule(models.Model):
     sid=models.AutoField(primary_key=True)
     days=models.CharField(max_length=200, verbose_name='Available Days')
