@@ -10,6 +10,7 @@ class Pataient(AbstractUser):
 
 class Department(models.Model):
     deptid=models.AutoField(primary_key=True)
+    image=models.ImageField(upload_to='dept_img/')
     deptname=models.CharField(max_length=255, verbose_name='Department Name')
     deptdesc=models.TextField(verbose_name='Department Description')
 
