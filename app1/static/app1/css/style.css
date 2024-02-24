@@ -80,6 +80,10 @@
 
 
 /*** Navbar ***/
+.collapse navbar-collapse {
+    display: flex;
+    /* flex-direction: row; */
+}
 .navbar .dropdown-toggle::after {
     border: none;
     content: "\f107";

@@ -49,9 +49,15 @@
                 <div class="dropdown-menu rounded-0 rounded-bottom m-0">
                     <a href="{% url "team" %}" class="dropdown-item">Our Doctors</a>
                     <a href="{% url "appointment" %}" class="dropdown-item">Appointment</a>
-                </div>
+                </div></div>
+                <a href="{% url "contact"%}" class="{% if url_name == 'contact'%} active {%endif%}nav-item nav-link ">Contact</a>
+                <div class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">{{request.user.get_full_name}}</a>
+                    <div class="dropdown-menu rounded-0 rounded-bottom m-0">
+                        <a href="{% url "change_user" %}" class="dropdown-item">Change User Name</a>
+                        <a href="{% url "change_password" %}" class="dropdown-item">Change Password</a>
+                    </div>
             </div>
-            <a href="{% url "contact"%}" class="nav-item nav-link">Contact</a>
         </div>
         <a href="{% url "logout"%}" class="btn btn-primary rounded-0 py-4 px-lg-5 d-none d-lg-block">Logout<i class="fa fa-arrow-right ms-3"></i></a>
     </div>
