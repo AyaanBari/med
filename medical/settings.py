@@ -77,10 +77,10 @@ WSGI_APPLICATION = 'medical.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'medical',
-        'HOST': 'medica.mysql.database.azure.com',
-        'USER': 'root1',
-        'PASSWORD':'abcd1234!',
+        'NAME': 'bkmerjmwcflkfk2ltrta',
+        'HOST': 'bkmerjmwcflkfk2ltrta-mysql.services.clever-cloud.com',
+        'USER': 'ulrkdhtfcbhk1quh',
+        'PASSWORD':'Eg1LewWpW2GO8A8WntEo',
         'PORT':'3306'
     }
 }
