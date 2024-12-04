@@ -66,38 +66,40 @@
 
     <!-- Contact Start -->
     <center>
-                <div class="col-lg-6 wow fadeIn" data-wow-delay="0.1s">
-                    <div class="bg-light rounded p-5">
-                        <p class="d-inline-block border rounded-pill py-1 px-4"><strong>Sign-up</strong></p>
-                            {% csrf_token %}
-                            <div class="row g-3">
-                               
-                            {% for frm in form %}
-                            <div class="col-md-12">
-                                <div class="form-floating">
-                                    {{frm}}
-                                    {{frm.label_tag}}<span class="text-danger">{{frm.errors | striptags}}</span>
-
-                                </div>
+        <div class="col-lg-6 wow fadeIn" data-wow-delay="0.1s">
+            <div class="bg-light rounded p-5">
+                <p class="d-inline-block border rounded-pill py-1 px-4"><strong>Sign-up</strong></p>
+                <form method="POST" action="{% url 'signup' %}">
+                    {% csrf_token %}
+                    <div class="row g-3">
+                        {% for field in form %}
+                        <div class="col-md-12">
+                            <div class="form-floating">
+                                {{ field }}
+                                {{ field.label_tag }}
+                                <span class="text-danger">{{ field.errors | striptags }}</span>
                             </div>
-                            {% endfor %} 
-
-                                <div class="col-12">
-                                    <button class="btn btn-primary w-100 py-3" type="submit">Signup</button>
-                                </div>
-                            </div>
-                        {% if messages %}
-                        {% for msg in messages %}
-                        <div class="alert alert-success">
-                            {{msg}}
                         </div>
                         {% endfor %}
-                        {% endif %}
-                        <p class="text-center mt-3">Don't have an account? <a href="{% url 'signup' %}">Sign-up</a></p>
+    
+                        <div class="col-12">
+                            <button class="btn btn-primary w-100 py-3" type="submit">Signup</button>
+                        </div>
                     </div>
+                </form>
+    
+                {% if messages %}
+                {% for msg in messages %}
+                <div class="alert alert-success">
+                    {{ msg }}
                 </div>
-              
+                {% endfor %}
+                {% endif %}
+                <p class="text-center mt-3">Already have an account? <a href="{% url 'signin' %}">Login</a></p>
+            </div>
+        </div>
     </center>
+    
 
     <!-- Footer Start -->
     {% include './footer.html' %}
